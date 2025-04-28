@@ -1,8 +1,14 @@
 {
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts"
+  },
   "dependencies": {
     "fastify": "^5.3.2"
   },
   "devDependencies": {
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
 }
