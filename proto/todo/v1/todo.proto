@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package todo.v1;
+
+// TODOアイテムのメッセージ定義
+message TodoItem {
+  string id = 1;
+  string title = 2;
+  bool completed = 3;
+  string created_at = 4;
+  string updated_at = 5;
+}
+
+// TODOアイテムの作成リクエスト
+message CreateTodoRequest {
+  string title = 1;
+}
+
+// TODOアイテムの作成レスポンス
+message CreateTodoResponse {
+  TodoItem item = 1;
+}
+
+// TODOアイテムの取得リクエスト
+message GetTodoRequest {
+  string id = 1;
+}
+
+// TODOアイテムの取得レスポンス
+message GetTodoResponse {
+  TodoItem item = 1;
+}
+
+// TODOアイテムの一覧取得リクエスト
+message ListTodosRequest {
+  // ページネーションのための開始キー（オプション）
+  optional string next_token = 1;
+  // 1ページあたりの最大アイテム数（オプション）
+  optional int32 max_results = 2;
+}
+
+// TODOアイテムの一覧取得レスポンス
+message ListTodosResponse {
+  repeated TodoItem items = 1;
+  // 次のページがある場合の開始キー
+  optional string next_token = 2;
+}
+
+// TODOアイテムの更新リクエスト
+message UpdateTodoRequest {
+  string id = 1;
+  optional string title = 2;
+  optional bool completed = 3;
+}
+
+// TODOアイテムの更新レスポンス
+message UpdateTodoResponse {
+  TodoItem item = 1;
+}
+
+// TODOアイテムの削除リクエスト
+message DeleteTodoRequest {
+  string id = 1;
+}
+
+// TODOアイテムの削除レスポンス
+message DeleteTodoResponse {
+  bool success = 1;
+}
+
+// TODOサービスの定義
+service TodoService {
+  // TODOアイテムを作成
+  rpc CreateTodo(CreateTodoRequest) returns (CreateTodoResponse);
+  // 特定のTODOアイテムを取得
+  rpc GetTodo(GetTodoRequest) returns (GetTodoResponse);
+  // TODOアイテムの一覧を取得
+  rpc ListTodos(ListTodosRequest) returns (ListTodosResponse);
+  // TODOアイテムを更新
+  rpc UpdateTodo(UpdateTodoRequest) returns (UpdateTodoResponse);
+  // TODOアイテムを削除
+  rpc DeleteTodo(DeleteTodoRequest) returns (DeleteTodoResponse);
+}
