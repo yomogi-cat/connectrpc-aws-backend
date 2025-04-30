@@ -1,6 +1,10 @@
 # Terraform による AWS App Runner デプロイガイド
 
-このガイドでは、Terraform を使用して AWS App Runner サービスを構築し、コンテナアプリケーションをデプロイする手順を説明します。
+TypeScript/Fastify/ConnectRPC で構築したバックエンド API の
+Terraform による App Runner デプロイテンプレートです。
+
+TypeScript/Fastify/ConnectRPC で構築するバックエンド API テンプレートの
+記事はこちら
 
 ## 前提条件
 
@@ -112,7 +116,8 @@ echo "App Runner URL: https://$APP_RUNNER_URL"
 curl -v https://$APP_RUNNER_URL/health
 ```
 
-デプロイが完了するまで数分かかる場合があります。AWS コンソールの App Runner ダッシュボードでも進行状況を確認できます。
+デプロイが完了するまで数分かかる場合があります。
+AWS コンソールの App Runner ダッシュボードでも進行状況を確認できます。
 
 ## 6. クリーンアップ
 
@@ -121,23 +126,18 @@ curl -v https://$APP_RUNNER_URL/health
 ```bash
 # Terraform リソースの削除
 terraform -chdir=terraform destroy
-
-# 確認メッセージが表示されたら「yes」と入力
 ```
 
 ## トラブルシューティング
 
 ### デプロイが失敗する場合
 
-- App Runner ログで詳細なエラーメッセージを確認
-- ヘルスチェックエンドポイント（/health）がアプリケーションで正しく実装されているか確認
-- IAM ロールとポリシーの権限が正しく設定されているか確認
+- App Runner ログでエラーメッセージを確認
 
 ### イメージのプッシュに失敗する場合
 
 - AWS CLI の認証情報が正しく設定されているか確認
-- ECR リポジトリに対する適切な権限があるか確認
-- 以下参照
+- `image_tag_mutability`を`IMUTABLE`にしていると失敗するケースがある
   https://zenn.dev/kuritify/articles/docker-descktop-setting-from-ecr-400-bad-request
 
 ### アプリケーションにアクセスできない場合
@@ -148,4 +148,4 @@ terraform -chdir=terraform destroy
 
 ---
 
-このガイドでは、Terraform を使用して AWS App Runner サービスを構築し、コンテナアプリケーションをデプロイする方法を説明しました。必要に応じて設定をカスタマイズし、本番環境のニーズに合わせて調整してください。
+このガイドでは、Terraform を使用して AWS App Runner サービスを構築し、コンテナアプリケーションをデプロイする方法を説明しました。必要に応じて Github Actions など、設定をカスタマイズし、本番環境のニーズに合わせて調整してください。

@@ -1,6 +1,6 @@
 version: v2
 plugins:
   - remote: buf.build/bufbuild/es
-    out: src/buf
+    out: src/interfaces/proto
     include_imports: true
     opt: target=ts
