@@ -15,7 +15,7 @@ resource "aws_apprunner_service" "app_service" {
           NODE_ENV = "production"
         }
       }
-      image_identifier      = "${aws_ecr_repository.app_runner_repo.repository_url}:2"
+      image_identifier      = "${aws_ecr_repository.app_runner_repo.repository_url}:latest"
       image_repository_type = "ECR"
     }
   }
