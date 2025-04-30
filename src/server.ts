@@ -14,6 +14,11 @@ const buildServer = (): FastifyInstance => {
     logger: fastifyConfig.logger,
   });
 
+  // AppRunnerデプロイ時のヘルスチェックエンドポイント
+  server.get("/health", async (request, reply) => {
+    return reply.code(200).send({ status: "ok" });
+  });
+
   // Connect plugin の登録
   server.register(fastifyConnectPlugin, {
     routes,
@@ -24,7 +29,7 @@ const buildServer = (): FastifyInstance => {
 
 const start = async (server: FastifyInstance) => {
   try {
-    await server.listen({ port: fastifyConfig.port });
+    await server.listen({ port: fastifyConfig.port, host: "0.0.0.0" });
 
     server.log.info(`Server is running on port ${fastifyConfig.port}`);
   } catch (err) {
