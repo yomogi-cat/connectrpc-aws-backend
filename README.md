@@ -13,6 +13,7 @@ App Runner を使用して AWS にデプロイされる API サービスです�
 - **TypeScript**: v5.8.3
 - **Docker**: Docker version 28.0.4
 - **Git**: git version 2.47.1.windows.2
+- **Buf CLI**: 1.50.0
 
 ### AWS デプロイ用
 
