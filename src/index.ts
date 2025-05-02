@@ -1,4 +1,4 @@
-import { server } from "./interfaces/server";
+import { server } from "./interfaces/api/server";
 import { logger } from "./infrastructure/logging/logger";
 import { config } from "./config";
 
