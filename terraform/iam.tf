@@ -28,16 +28,15 @@ resource "aws_iam_policy" "ecr_access_policy" {
         Effect = "Allow"
         Action = [
           "ecr:GetDownloadUrlForLayer",
-          "ecr:BatchCheckLayerAvailability",
           "ecr:BatchGetImage",
-          "ecr:DescribeImages",
-          "ecr:GetAuthorizationToken",
-          "ecr:PutImage",
-          "ecr:InitiateLayerUpload",
-          "ecr:UploadLayerPart",
-          "ecr:CompleteLayerUpload"
+          "ecr:BatchCheckLayerAvailability",
         ]
-        Resource = "*"
+        Resource = aws_ecr_repository.app_runner_repo.arn
+      },
+      {
+        Effect = "Allow"
+        Action = "ecr:GetAuthorizationToken"
+        Resource = "*" 
       }
     ]
   })

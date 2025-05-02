@@ -36,11 +36,6 @@ resource "aws_apprunner_service" "app_service" {
     memory = 2048
   }
 
-#   tags = {
-#     Name        = "app-runner-todo-api"
-#     Environment = "production"
-#   }
-
   # ECRリポジトリとIAMロールポリシーの両方が作成されていることを確認
   depends_on = [
     aws_ecr_repository.app_runner_repo,
@@ -54,8 +49,4 @@ resource "aws_apprunner_auto_scaling_configuration_version" "app_scaling" {
   max_concurrency                 = 50
   max_size                        = 5
   min_size                        = 1
-
-    # tags = {
-    #     Name = "app-runner-scaling"
-    # }
 }
