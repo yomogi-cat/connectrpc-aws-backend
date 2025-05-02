@@ -1,12 +1,12 @@
 import { fastify } from "fastify";
 import type { FastifyInstance } from "fastify";
 import { fastifyConnectPlugin } from "@connectrpc/connect-fastify";
-import { routes } from "./api/connect";
-import { logger, loggerConfig } from "../infrastructure/logging/logger";
-import { config } from "../config";
-import { TodoService } from "../usecase/services/TodoService";
-import { InMemoryTodoRepository } from "../infrastructure/persistence/repositories/TodoRepository";
-import { TodoHandler } from "../interfaces/api/handlers/TodoHandler";
+import { routes } from "./connect";
+import { logger, loggerConfig } from "../../infrastructure/logging/logger";
+import { config } from "../../config";
+import { TodoService } from "../../usecase/services/TodoService";
+import { InMemoryTodoRepository } from "../../infrastructure/persistence/repositories/TodoRepository";
+import { TodoHandler } from "./handlers/TodoHandler";
 
 const buildServer = (): FastifyInstance => {
   // 依存関係の注入
