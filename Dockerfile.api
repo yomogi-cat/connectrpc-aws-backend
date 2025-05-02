@@ -10,8 +10,13 @@ COPY tsconfig.json ./
 # 依存関係をインストール
 RUN npm ci
 
-# ソースコードをコピー
-COPY src/ ./src/
+# ソースコードをコピー（バッチサーバーに含めるコードはコピーしない）
+COPY src/domain/ ./src/domain/
+COPY src/usecase/ ./src/usecase/
+COPY src/infrastructure/ ./src/infrastructure/
+COPY src/interfaces/api/ ./src/interfaces/api/
+COPY src/config.ts ./src/config.ts
+COPY src/index.ts ./src/index.ts
 
 # TypeScriptをビルド
 RUN npm run build
