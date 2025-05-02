@@ -1,12 +1,12 @@
 import { fastify } from "fastify";
 import type { FastifyInstance } from "fastify";
 import { fastifyConnectPlugin } from "@connectrpc/connect-fastify";
-import { routes } from "./connect";
 import { logger, loggerConfig } from "../../infrastructure/logging/logger";
 import { config } from "../../config";
 import { TodoService } from "../../usecase/services/TodoService";
 import { InMemoryTodoRepository } from "../../infrastructure/persistence/repositories/TodoRepository";
 import { TodoHandler } from "./handlers/TodoHandler";
+import { TodoService as ProtoTodoService } from "../../infrastructure/proto/todo/v1/todo_pb";
 
 const buildServer = (): FastifyInstance => {
   // 依存関係の注入
@@ -26,7 +26,15 @@ const buildServer = (): FastifyInstance => {
 
   // Connect plugin の登録
   server.register(fastifyConnectPlugin, {
-    routes: (router) => routes(router, todoHandler),
+    routes: (router) => {
+      router.service(ProtoTodoService, {
+        createTodo: todoHandler.createTodo.bind(todoHandler),
+        getTodo: todoHandler.getTodo.bind(todoHandler),
+        listTodos: todoHandler.listTodos.bind(todoHandler),
+        updateTodo: todoHandler.updateTodo.bind(todoHandler),
+        deleteTodo: todoHandler.deleteTodo.bind(todoHandler),
+      });
+    },
   });
 
   return server;
