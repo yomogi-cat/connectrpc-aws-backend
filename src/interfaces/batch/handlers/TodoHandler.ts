@@ -1,5 +1,5 @@
-import { ITodoService } from "@/domain/interfaces/services/ITodoService";
-import { logger } from "@/infrastructure/logging/logger";
+import { ITodoService } from "../../../domain/interfaces/services/ITodoService";
+import { logger } from "../../../infrastructure/logging/logger";
 
 export class TodoHandler {
   private todoService: ITodoService;
