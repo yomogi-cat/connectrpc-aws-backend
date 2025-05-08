@@ -1,6 +1,6 @@
 # App Runner用のIAMロール
 resource "aws_iam_role" "app_runner_role" {
-  name = "app-runner-todo-api"
+  name = "${local.project_name}-app-runner-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -34,9 +34,9 @@ resource "aws_iam_policy" "ecr_access_policy" {
         Resource = aws_ecr_repository.app_runner_repo.arn
       },
       {
-        Effect = "Allow"
-        Action = "ecr:GetAuthorizationToken"
-        Resource = "*" 
+        Effect   = "Allow"
+        Action   = "ecr:GetAuthorizationToken"
+        Resource = "*"
       }
     ]
   })
