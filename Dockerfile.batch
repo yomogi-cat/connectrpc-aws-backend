@@ -26,14 +26,11 @@ WORKDIR /app
 
 # 本番環境の依存関係のみをインストール
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm ci --omit=dev --verbose 
 
 # ビルドステージからビルド済みのコードをコピー
 COPY --from=build /app/dist ./dist
 
-# バッチ処理用の環境変数を設定
-ENV NODE_ENV=production
-ENV TZ=Asia/Tokyo
-
-# バッチ処理を実行
-CMD ["node", "dist/interfaces/batch/app.js"] 
+# バッチ実行用のエントリポイント
+ENTRYPOINT ["node", "dist/interfaces/batch/batchRunner.js"]
+CMD []
