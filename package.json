@@ -2,8 +2,11 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "npm run clean && tsc",
-    "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts"
+    "api:start": "node dist/index.js",
+    "api:dev": "ts-node src/index.ts",
+    "batch:stats": "ts-node src/interfaces/batch/batchRunner.ts stats",
+    "batch:export": "ts-node src/interfaces/batch/batchRunner.ts export",
+    "batch:cleanup": "ts-node src/interfaces/batch/batchRunner.ts cleanup"
   },
   "dependencies": {
     "@bufbuild/buf": "^1.53.0",
