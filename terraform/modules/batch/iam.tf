@@ -1,6 +1,7 @@
+# EventBridge Scheduler用のIAMロール
 resource "aws_iam_role" "scheduler_role" {
   name = "${local.project_name}-scheduler-role"
-  
+
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -15,10 +16,10 @@ resource "aws_iam_role" "scheduler_role" {
   })
 }
 
-# EventBridgeルール用のポリシー
-resource "aws_iam_policy" "events_policy" {
-  name        = "${local.project_name}-batch-events-policy"
-  description = "Policy for EventBridge to run ECS tasks"
+# EventBridge Scheduler用のポリシー
+resource "aws_iam_policy" "scheduler_policy" {
+  name        = "${local.project_name}-batch-scheduler-policy"
+  description = "Policy for EventBridge Scheduler to run ECS tasks"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -49,10 +50,10 @@ resource "aws_iam_policy" "events_policy" {
   })
 }
 
-# EventBridgeルール用のポリシーアタッチメント
-resource "aws_iam_role_policy_attachment" "events_policy_attachment" {
+# EventBridge Scheduler用のポリシーアタッチメント
+resource "aws_iam_role_policy_attachment" "scheduler_policy_attachment" {
   role       = aws_iam_role.scheduler_role.name
-  policy_arn = aws_iam_policy.events_policy.arn
+  policy_arn = aws_iam_policy.scheduler_policy.arn
 }
 
 # タスク実行ロール

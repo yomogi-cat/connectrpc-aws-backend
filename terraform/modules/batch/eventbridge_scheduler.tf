@@ -2,8 +2,8 @@
 resource "aws_scheduler_schedule" "cleanup_schedule" {
   name                = "${local.project_name}-cleanup-schedule"
   description         = "Cleanup batch"
-  schedule_expression = "cron(0/5 * * * ? *)"
-  
+  schedule_expression = "cron(0 3 * * ? *)"
+
   flexible_time_window {
     mode = "OFF"
   }
@@ -31,7 +31,7 @@ resource "aws_scheduler_schedule" "export_schedule" {
   name                = "${local.project_name}-export-schedule"
   description         = "Export batch"
   schedule_expression = "cron(0 3 * * ? *)"
-  
+
   flexible_time_window {
     mode = "OFF"
   }
@@ -59,7 +59,7 @@ resource "aws_scheduler_schedule" "stats_schedule" {
   name                = "${local.project_name}-stats-schedule"
   description         = "Stats batch"
   schedule_expression = "cron(0 6 * * ? *)"
-  
+
   flexible_time_window {
     mode = "OFF"
   }
