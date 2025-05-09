@@ -120,7 +120,7 @@ curl http://localhost:3000/health
 terraform -chdir=terraform/modules/api init
 terraform -chdir=terraform/modules/batch init
 
-terraform -chdir=terraform/modules/api apply -target=aws_ecr_repository.app_runner_repo
+terraform -chdir=terraform/modules/api apply -target=aws_ecr_repository.api_repo
 terraform -chdir=terraform/modules/batch apply -target=aws_ecr_repository.batch_repo
 
 # ECR の URL を取得

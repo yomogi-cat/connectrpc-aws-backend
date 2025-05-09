@@ -42,12 +42,12 @@
 
 ### 出力変数
 
-| ファイル名 | 出力名                 | 説明                      | 値                                                |
-| ---------- | ---------------------- | ------------------------- | ------------------------------------------------- |
-| outputs.tf | app_runner_service_arn | App Runner サービスの ARN | aws_apprunner_service.app_service.arn             |
-| outputs.tf | app_runner_service_url | App Runner サービスの URL | aws_apprunner_service.app_service.service_url     |
-| outputs.tf | ecr_repository_url     | ECR リポジトリの URL      | aws_ecr_repository.app_runner_repo.repository_url |
-| outputs.tf | aws_region             | AWS リージョン            | ap-northeast-1                                    |
+| ファイル名 | 出力名                 | 説明                      | 値                                            |
+| ---------- | ---------------------- | ------------------------- | --------------------------------------------- |
+| outputs.tf | app_runner_service_arn | App Runner サービスの ARN | aws_apprunner_service.app_service.arn         |
+| outputs.tf | app_runner_service_url | App Runner サービスの URL | aws_apprunner_service.app_service.service_url |
+| outputs.tf | ecr_repository_url     | ECR リポジトリの URL      | aws_ecr_repository.api_repo.repository_url    |
+| outputs.tf | aws_region             | AWS リージョン            | ap-northeast-1                                |
 
 ## 2. Terraform の実行 - ECR リポジトリ作成
 
@@ -59,10 +59,10 @@ App Runner は空の ECR リポジトリを参照するとデプロイに失敗�
 terraform -chdir=terraform init
 
 # 実行計画の確認（ECRリポジトリのみ）
-terraform -chdir=terraform plan -target=aws_ecr_repository.app_runner_repo
+terraform -chdir=terraform plan -target=aws_ecr_repository.api_repo
 
 # ECRリポジトリの作成（確認メッセージが表示されたら「yes」と入力）
-terraform -chdir=terraform apply -target=aws_ecr_repository.app_runner_repo
+terraform -chdir=terraform apply -target=aws_ecr_repository.api_repo
 
 # 出力値を環境変数に設定
 export ECR_REPO_URL=$(terraform -chdir=terraform output -raw ecr_repository_url)
