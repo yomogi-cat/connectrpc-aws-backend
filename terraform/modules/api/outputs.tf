@@ -1,4 +1,4 @@
 output "ecr_repository_url" {
   description = "ECRリポジトリのURL"
-  value       = aws_ecr_repository.app_runner_repo.repository_url
+  value       = aws_ecr_repository.api_repo.repository_url
 }

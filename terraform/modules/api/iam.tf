@@ -31,7 +31,7 @@ resource "aws_iam_policy" "ecr_access_policy" {
           "ecr:BatchGetImage",
           "ecr:BatchCheckLayerAvailability",
         ]
-        Resource = aws_ecr_repository.app_runner_repo.arn
+        Resource = aws_ecr_repository.api_repo.arn
       },
       {
         Effect   = "Allow"
