@@ -1,6 +1,6 @@
 # インフラ構成図
 
-![](./architecture.png)
+![](./doc/architecture.png)
 
 # 追加したい
 
@@ -113,29 +113,4 @@ curl http://localhost:3000/health
 
 ### デプロイ方法
 
-詳細なデプロイ手順は `DEPLOY.md` を参照してください。
-
-```bash
-# 基本的なデプロイ手順
-terraform -chdir=terraform/modules/api init
-terraform -chdir=terraform/modules/batch init
-
-terraform -chdir=terraform/modules/api apply -target=aws_ecr_repository.api_repo
-terraform -chdir=terraform/modules/batch apply -target=aws_ecr_repository.batch_repo
-
-# ECR の URL を取得
-export ECR_API_REPO_URL=$(terraform -chdir=terraform/modules/api output -raw ecr_repository_url)
-export ECR_BATCH_REPO_URL=$(terraform -chdir=terraform/modules/batch output -raw ecr_repository_url)
-
-# Docker イメージのビルドとプッシュ
-aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin $ECR_API_REPO_URL
-aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin $ECR_BATCH_REPO_URL
-docker build -f Dockerfile.api -t $ECR_API_REPO_URL:latest .
-docker build -f Dockerfile.batch -t $ECR_BATCH_REPO_URL:latest .
-docker push $ECR_API_REPO_URL:latest
-docker push $ECR_BATCH_REPO_URL:latest
-
-# App Runner サービスのデプロイ
-terraform -chdir=terraform/modules/api apply
-terraform -chdir=terraform/modules/batch apply
-```
+詳細なデプロイ手順は `doc`ディレクトリ以下の、`DEPLOY.md` を参照してください。
