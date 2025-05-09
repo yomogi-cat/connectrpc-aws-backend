@@ -1,6 +1,6 @@
 # インフラ構成図
 
-![](./architecture.drawio)
+![](./architecture.png)
 
 # 追加したい
 
