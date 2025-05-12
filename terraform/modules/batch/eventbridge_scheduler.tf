@@ -18,7 +18,7 @@ resource "aws_scheduler_schedule" "cleanup_schedule" {
       task_count          = 1
 
       network_configuration {
-        subnets          = aws_subnet.batch_private_subnet[*].id
+        subnets          = [aws_subnet.batch_private_subnet.id]
         security_groups  = [aws_security_group.batch_tasks.id]
         assign_public_ip = false
       }
@@ -46,7 +46,7 @@ resource "aws_scheduler_schedule" "export_schedule" {
       task_count          = 1
 
       network_configuration {
-        subnets          = aws_subnet.batch_private_subnet[*].id
+        subnets          = [aws_subnet.batch_private_subnet.id]
         security_groups  = [aws_security_group.batch_tasks.id]
         assign_public_ip = false
       }
@@ -74,7 +74,7 @@ resource "aws_scheduler_schedule" "stats_schedule" {
       task_count          = 1
 
       network_configuration {
-        subnets          = aws_subnet.batch_private_subnet[*].id
+        subnets          = [aws_subnet.batch_private_subnet.id]
         security_groups  = [aws_security_group.batch_tasks.id]
         assign_public_ip = false
       }
